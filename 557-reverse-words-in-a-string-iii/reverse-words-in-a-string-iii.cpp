@@ -1,20 +1,28 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        string ans = "";
-        string word = "";
-        for (char c : s) {
-            if (c == ' ') {
-                reverse(word.begin(), word.end());
-                ans += word;
-                word = "";
-                ans += c;
+        int n = -1; 
+        int m = -1; 
+        
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] != ' ') {
+                if (n == -1) {
+                    n = i;
+                }
+                m = i;
             } else {
-                word += c;
+                if (n != -1 && m != -1) {
+                    reverse(s.begin() + n, s.begin() + m + 1);
+                    n = -1;
+                    m = -1;
+                }
             }
         }
-        reverse(word.begin(), word.end());
-        ans += word;
-        return ans;
+        
+        if (n != -1 && m != -1) {
+            reverse(s.begin() + n, s.begin() + m + 1);
+        }
+        
+        return s;
     }
 };
